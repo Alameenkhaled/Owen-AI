@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OwenAI | The Trust Protocol</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        void: '#020408',
+                        panel: '#0B0E14',
+                        cyan: '#00F0FF',
+                        risk: '#FF2A5D',
+                        safe: '#00FF94',
+                        gold: '#FFD700',
+                        slate: '#64748B',
+                    },
+                    fontFamily: {
+                        display: ['Space Grotesk', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
+                    },
+                    animation: {
+                        'scan': 'scan 4s linear infinite',
+                        'pulse-glow': 'pulseGlow 3s ease-in-out infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'spin-slow': 'spin 20s linear infinite',
+                        'marquee': 'marquee 30s linear infinite',
+                    },
+                    keyframes: {
+                        scan: {
+                            '0%': { transform: 'translateY(-100%)' },
+                            '100%': { transform: 'translateY(100%)' }
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { boxShadow: '0 0 20px rgba(0, 240, 255, 0.1)' },
+                            '50%': { boxShadow: '0 0 40px rgba(0, 240, 255, 0.3)' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        marquee: {
+                            '0%': { transform: 'translateX(0)' },
+                            '100%': { transform: 'translateX(-50%)' },
+                        }
+                    },
+                    backgroundImage: {
+                        'grid-pattern': "linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px)",
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { background-color: #020408; overflow-x: hidden; scroll-behavior: smooth; }
+        .text-glow { text-shadow: 0 0 30px rgba(0, 240, 255, 0.4); }
+        .scanner::after {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100vh;
+            background: linear-gradient(to bottom, transparent, rgba(0, 240, 255, 0.05), transparent);
+            animation: scan 4s linear infinite; pointer-events: none; z-index: 0;
+        }
+        /* Scroll Reveal Classes */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.5, 0, 0, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+
+        /* Glassmorphism Utilities */
+        .glass { background: rgba(11, 14, 20, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
+    </style>
+</head>
+<body class="text-white font-body relative scanner">
+
+    <!-- ==================== NAV ==================== -->
+    <nav class="fixed top-0 w-full p-6 flex justify-between items-center z-50 bg-void/80 backdrop-blur-md border-b border-white/5">
+        <div class="flex items-center gap-3">
+            <!-- Logo in Nav -->
+            <img src="https://github.com/Alameenkhaled/OwenAI/blob/main/ChatGPT%20Image%20Aug%2024,%202025,%2008_27_32%20AM.png?raw=true" class="w-8 h-8 object-contain drop-shadow-[0_0_10px_rgba(0,240,255,0.5)]">
+            <span class="font-display font-bold tracking-widest text-sm text-white">OWEN_AI <span class="text-slate-500">// PROTOCOL_V1</span></span>
+        </div>
+        <div class="hidden md:flex flex-col items-end text-[10px] font-mono text-gray-400 uppercase tracking-widest leading-tight">
+            <div class="flex items-center gap-2"><span class="text-safe">SYSTEM STATUS: ONLINE</span></div>
+            <div>STEP ZERO: SECURED</div>
+            <a href="https://calendar.app.google/TL4DZAhAstyBqYJJ9" target="_blank" class="text-cyan hover:underline decoration-cyan cursor-pointer">INVEST_RELATION</a>
+        </div>
+    </nav>
+
+    <!-- ==================== 1. HERO SECTION ==================== -->
+    <section class="relative min-h-screen w-full flex flex-col items-center justify-center pt-24 border-b border-white/5">
+        <div class="absolute inset-0 bg-grid-pattern bg-[size:40px_40px] pointer-events-none opacity-30"></div>
+
+        <div class="relative z-10 max-w-7xl w-full px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+
+            <!-- LEFT: The Hook -->
+            <div class="lg:col-span-6 space-y-8 reveal active">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-cyan/20 bg-cyan/5 text-cyan text-[10px] font-mono tracking-widest uppercase">
+                    <div class="w-1.5 h-1.5 bg-cyan rounded-full animate-pulse"></div>
+                    System Live • Dubai Market
+                </div>
+
+                <h1 class="text-6xl md:text-8xl font-display font-medium leading-[0.9] tracking-tighter">
+                    CHAOS, <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan to-white text-glow animate-pulse">ORDERED.</span>
+                </h1>
+
+                <p class="text-lg text-gray-400 max-w-xl border-l-2 border-cyan/30 pl-6 leading-relaxed font-light">
+                    The Dubai market has a <span class="text-white font-medium">Trust Deficit</span>. We built the infrastructure to fix it.
+                    Owning "Step Zero" means catching the 2% of risks that cost billions.
+                </p>
+
+                <div class="flex gap-4 pt-4">
+                    <a href="https://calendar.app.google/TL4DZAhAstyBqYJJ9" target="_blank" class="group relative px-8 py-4 bg-cyan text-void font-display font-bold uppercase tracking-wider overflow-hidden hover:bg-white transition-colors shadow-[0_0_20px_rgba(0,240,255,0.3)] inline-block cursor-pointer text-center">
+                        <span class="relative z-10">Deploy Capital</span>
+                        <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity"></div>
+                    </a>
+                    <a href="https://calendar.app.google/TL4DZAhAstyBqYJJ9" target="_blank" class="px-8 py-4 bg-transparent border border-white/20 text-white font-display font-bold uppercase tracking-wider hover:border-cyan hover:text-cyan transition-all inline-block cursor-pointer text-center">
+                        View The Data
+                    </a>
+                </div>
+
+                <!-- Trust Footer -->
+                <div class="pt-8 border-t border-white/10">
+                    <div class="text-[10px] font-mono text-slate-500 uppercase tracking-widest mb-3">Trusted Infrastructure For:</div>
+                    <div class="flex gap-6 opacity-60 grayscale hover:grayscale-0 transition-all">
+                        <span class="font-bold text-white text-xs border border-white/10 px-2 py-1 rounded">FIDU</span>
+                        <span class="font-bold text-white text-xs border border-white/10 px-2 py-1 rounded">D&B</span>
+                        <span class="font-bold text-white text-xs border border-white/10 px-2 py-1 rounded">MANZIL</span>
+                        <span class="font-bold text-white text-xs border border-white/10 px-2 py-1 rounded">EDRAJ</span>
+                    </div>
+                    <div class="text-cyan font-mono text-[10px] mt-2">// 280+ AGENTS ACTIVE DAY ONE</div>
+                </div>
+            </div>
+
+            <!-- RIGHT: Intelligence Layer -->
+            <div class="lg:col-span-6 relative h-[500px] flex items-center justify-center reveal active delay-200">
+                 <!-- Glow -->
+                 <div class="absolute inset-0 bg-cyan/5 rounded-full blur-3xl animate-pulse-glow"></div>
+
+                 <!-- Glass Panel -->
+                 <div class="relative w-full glass rounded-xl p-1 border-t border-l border-white/20 shadow-2xl transform rotate-1 hover:rotate-0 transition-transform duration-700 animate-float">
+                    <div class="absolute -top-3 -right-3 bg-risk border border-risk text-white text-[10px] font-bold px-2 py-1 rounded shadow-lg animate-bounce">! 2% GAP FOUND</div>
+
+                    <div class="bg-panel/95 rounded-lg p-6 h-full relative overflow-hidden">
+                        <!-- Header -->
+                        <div class="flex justify-between items-start mb-6 border-b border-white/10 pb-4">
+                            <div>
+                                <div class="text-xs text-slate-500 font-mono uppercase tracking-widest">Intelligence Layer</div>
+                                <div class="text-lg font-bold text-white flex items-center gap-2">
+                                    <!-- Small Logo inside dashboard -->
+                                    <img src="https://github.com/Alameenkhaled/OwenAI/blob/main/ChatGPT%20Image%20Aug%2024,%202025,%2008_27_32%20AM.png?raw=true" class="w-5 h-5 object-contain">
+                                    OwenAI
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-[10px] font-mono text-cyan animate-pulse">● ACTIVE SCANNING</div>
+                                <div class="text-[10px] text-slate-500">Processing...</div>
+                            </div>
+                        </div>
+
+                        <!-- Metrics -->
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <div class="bg-white/5 p-3 rounded border border-white/5">
+                                <div class="text-[9px] text-slate-400 uppercase mb-1">Risk Detection</div>
+                                <div class="text-2xl font-display text-white">98.2<span class="text-cyan text-sm">%</span></div>
+                            </div>
+                            <div class="bg-white/5 p-3 rounded border border-white/5">
+                                <div class="text-[9px] text-slate-400 uppercase mb-1">Unit Economics</div>
+                                <div class="text-2xl font-display text-safe">15:1 <span class="text-slate-500 text-xs">LTV</span></div>
+                            </div>
+                        </div>
+
+                        <!-- Live Scan Feed -->
+                        <div class="space-y-2 font-mono text-[10px]">
+                            <div class="flex justify-between items-center p-2 hover:bg-white/5 rounded transition-colors border-l-2 border-transparent hover:border-risk">
+                                <span class="text-slate-400">SCAN_ID: #001A2B3C</span>
+                                <span class="text-risk font-bold flex items-center gap-1"><i data-lucide="alert-circle" class="w-3 h-3"></i> HIDDEN_FEE</span>
+                            </div>
+                            <div class="flex justify-between items-center p-2 hover:bg-white/5 rounded transition-colors border-l-2 border-transparent hover:border-safe">
+                                <span class="text-slate-400">SCAN_ID: #001A2B3D</span>
+                                <span class="text-safe font-bold flex items-center gap-1"><i data-lucide="check-circle" class="w-3 h-3"></i> VERIFIED_CLEAN</span>
+                            </div>
+                            <div class="flex justify-between items-center p-2 hover:bg-white/5 rounded transition-colors border-l-2 border-transparent hover:border-cyan">
+                                <span class="text-slate-400">SCAN_ID: #001A2B3E</span>
+                                <span class="text-cyan font-bold flex items-center gap-1"><i data-lucide="activity" class="w-3 h-3"></i> OPTIMIZING...</span>
+                            </div>
+                             <div class="flex justify-between items-center p-2 hover:bg-white/5 rounded transition-colors border-l-2 border-transparent hover:border-risk">
+                                <span class="text-slate-400">SCAN_ID: #001A2B3F</span>
+                                <span class="text-risk font-bold flex items-center gap-1"><i data-lucide="alert-triangle" class="w-3 h-3"></i> PRED_RISK_HIGH</span>
+                            </div>
+                        </div>
+
+                        <!-- Bottom Status -->
+                        <div class="mt-6 pt-4 border-t border-white/10 flex justify-between items-center">
+                            <div class="text-safe text-xs font-bold flex items-center gap-2">
+                                <i data-lucide="check" class="w-3 h-3"></i> STEP ZERO SECURED
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 2. THE GAP (Blind Spot) ==================== -->
+    <section class="relative w-full py-32 bg-void border-t border-white/10 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="text-center mb-20 reveal">
+                <h2 class="text-4xl md:text-6xl font-display font-bold text-white mb-4">THE MARKET HAS A 6-MONTH <span class="text-risk">BLIND SPOT.</span></h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-0 border border-white/10 rounded-3xl overflow-hidden bg-panel reveal delay-100">
+                <!-- Chaos Side -->
+                <div class="p-12 border-b md:border-b-0 md:border-r border-white/10 relative group bg-risk/5">
+                    <div class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20"></div>
+                    <h3 class="text-2xl font-display font-bold text-white mb-6 relative z-10">The Current Reality</h3>
+                    <ul class="space-y-6 relative z-10">
+                        <li class="flex gap-4 items-start">
+                            <div class="p-2 bg-risk/10 rounded border border-risk/20 text-risk"><i data-lucide="shuffle"></i></div>
+                            <div>
+                                <strong class="text-white block text-sm">Chaos & Disinformation</strong>
+                                <span class="text-xs text-slate-400">Buyers relying on forums and outdated data.</span>
+                            </div>
+                        </li>
+                        <li class="flex gap-4 items-start">
+                            <div class="p-2 bg-risk/10 rounded border border-risk/20 text-risk"><i data-lucide="trending-down"></i></div>
+                            <div>
+                                <strong class="text-white block text-sm">1.2% Conversion Rate</strong>
+                                <span class="text-xs text-slate-400">The industry standard reflects broken process.</span>
+                            </div>
+                        </li>
+                        <li class="flex gap-4 items-start">
+                            <div class="p-2 bg-risk/10 rounded border border-risk/20 text-risk"><i data-lucide="trash-2"></i></div>
+                            <div>
+                                <strong class="text-white block text-sm">Billions Wasted</strong>
+                                <span class="text-xs text-slate-400">Time and capital lost chasing dead ends.</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Order Side (Visual) -->
+                <div class="p-12 relative flex items-center justify-center bg-cyan/5 overflow-hidden">
+                    <div class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20"></div>
+                    <!-- Beam of Light Graphic (CSS) -->
+                    <div class="absolute w-1 h-[200%] bg-cyan shadow-[0_0_50px_#00F0FF] rotate-12 opacity-80"></div>
+                    <div class="relative z-10 bg-black border border-cyan p-6 rounded-xl shadow-2xl max-w-xs text-center">
+                        <div class="w-10 h-10 bg-cyan/20 rounded-full flex items-center justify-center mx-auto mb-3 text-cyan"><i data-lucide="check"></i></div>
+                        <h4 class="text-white font-bold">The Owen Protocol</h4>
+                        <p class="text-xs text-slate-400 mt-2">Cutting through chaos with verified truth.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 3. THE ENGINE (Digital Workforce) ==================== -->
+    <section class="relative w-full py-32 bg-void border-t border-white/10 overflow-hidden">
+        <!-- Warm Glow -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gold/5 rounded-full blur-[120px] pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-4xl md:text-5xl font-display font-bold text-white mb-6">
+                    BEYOND AUTOMATION. <br>
+                    A <span class="text-transparent bg-clip-text bg-gradient-to-r from-gold to-orange-500">LIVING WORKFORCE.</span>
+                </h2>
+                <p class="text-slate-400 text-lg max-w-2xl mx-auto leading-relaxed">
+                    This isn't a chatbot. It's a symphony of specialized agents working in concert. As you scroll, see how data flows through the system to provide unparalleled service.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+
+                <!-- LEFT AGENTS -->
+                <div class="space-y-6 reveal delay-100">
+                    <!-- Agent 1: The Guardian (Green) -->
+                    <div class="flex items-start gap-4 p-4 rounded-xl border border-white/5 bg-panel hover:border-safe/50 transition-all group">
+                        <div class="w-16 h-16 shrink-0 rounded-lg overflow-hidden border border-white/10 group-hover:shadow-[0_0_15px_rgba(0,255,148,0.3)] transition-all">
+                            <img src="https://github.com/Alameenkhaled/animation/blob/main/Generated%20Image%20November%2020,%202025%20-%202_34AM.png?raw=true" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500">
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-white text-lg group-hover:text-safe transition-colors">The Guardian</h3>
+                            <p class="text-xs text-slate-400 mt-1 leading-relaxed">Executes real-time DLD/RERA compliance checks, flags anomalies, and ensures protocols are met.</p>
+                        </div>
+                    </div>
+
+                    <!-- Agent 2: The Mentor (Gold) -->
+                    <div class="flex items-start gap-4 p-4 rounded-xl border border-white/5 bg-panel hover:border-gold/50 transition-all group">
+                        <div class="w-16 h-16 shrink-0 rounded-lg overflow-hidden border border-white/10 group-hover:shadow-[0_0_15px_rgba(255,215,0,0.3)] transition-all">
+                            <img src="https://github.com/Alameenkhaled/animation/blob/main/Generated%20Image%20November%2020,%202025%20-%202_34AM%20(1).png?raw=true" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500">
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-white text-lg group-hover:text-gold transition-colors">The Mentor</h3>
+                            <p class="text-xs text-slate-400 mt-1 leading-relaxed">Leverages market insights to provide strategic recommendations and optimize agent workflows.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CENTER BRAIN (Animation) -->
+                <div class="h-[400px] flex items-center justify-center relative reveal delay-200">
+                    <div class="absolute w-[350px] h-[350px] border border-white/5 rounded-full animate-spin-slow"></div>
+                    <div class="absolute w-[250px] h-[250px] border border-cyan/20 rounded-full animate-spin-slow" style="animation-direction: reverse;"></div>
+                    <div class="relative z-10 w-32 h-32 bg-black border border-cyan rounded-full flex items-center justify-center shadow-[0_0_60px_rgba(0,240,255,0.3)]">
+                        <div class="text-center">
+                            <i data-lucide="cpu" class="w-10 h-10 text-cyan mx-auto mb-1"></i>
+                            <div class="text-[10px] font-bold text-white tracking-widest mt-2">ORCHESTRATOR</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT AGENTS -->
+                <div class="space-y-6 reveal delay-300">
+                    <!-- Agent 3: The Analyst (Purple) -->
+                    <div class="flex items-start gap-4 p-4 rounded-xl border border-white/5 bg-panel hover:border-purple-500/50 transition-all group">
+                        <div class="w-16 h-16 shrink-0 rounded-lg overflow-hidden border border-white/10 group-hover:shadow-[0_0_15px_rgba(168,85,247,0.3)] transition-all">
+                            <img src="https://github.com/Alameenkhaled/animation/blob/main/Generated%20Image%20November%2020,%202025%20-%202_35AM.png?raw=true" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500">
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-white text-lg group-hover:text-purple-400 transition-colors">The Analyst</h3>
+                            <p class="text-xs text-slate-400 mt-1 leading-relaxed">Understands client sentiment through 18,000+ interactions, tailoring engagement.</p>
+                        </div>
+                    </div>
+
+                    <!-- Agent 4: The Matcher (Cyan) -->
+                    <div class="flex items-start gap-4 p-4 rounded-xl border border-white/5 bg-panel hover:border-cyan/50 transition-all group">
+                        <div class="w-16 h-16 shrink-0 rounded-lg overflow-hidden border border-white/10 group-hover:shadow-[0_0_15px_rgba(0,240,255,0.3)] transition-all">
+                            <img src="https://github.com/Alameenkhaled/animation/blob/main/Generated%20Image%20November%2020,%202025%20-%202_37AM.png?raw=true" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500">
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-white text-lg group-hover:text-cyan transition-colors">The Matcher</h3>
+                            <p class="text-xs text-slate-400 mt-1 leading-relaxed">Remembers every interaction history to build a deep understanding of market dynamics.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 4. THE MOATS (Defensibility) ==================== -->
+    <section class="relative w-full py-24 px-6 bg-void border-t border-white/10">
+        <div class="max-w-7xl mx-auto">
+            <div class="mb-16 reveal">
+                <h2 class="text-3xl font-display font-bold text-white tracking-wide">DEFENSIBILITY PROTOCOLS.</h2>
+                <div class="w-20 h-1 bg-white/20 mt-4 rounded"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <!-- Card 1 -->
+                <div class="group h-[400px] bg-panel border border-white/10 p-6 flex flex-col justify-between hover:-translate-y-2 transition-all duration-500 reveal delay-100">
+                    <div>
+                        <div class="w-10 h-10 bg-white/5 rounded flex items-center justify-center mb-6 group-hover:bg-white/10 transition-colors">
+                            <i data-lucide="landmark" class="text-slate-300 group-hover:animate-pulse"></i>
+                        </div>
+                        <h3 class="text-xl font-display font-bold text-white mb-2">The Architect's Moat</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed">Encoded DLD/RERA logic from the author of the market's curriculum. Unrivaled regulatory insights.</p>
+                    </div>
+                    <div class="w-full h-1 bg-white/10 rounded overflow-hidden"><div class="w-0 h-full bg-slate-300 group-hover:w-full transition-all duration-700"></div></div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="group h-[400px] bg-panel border border-white/10 p-6 flex flex-col justify-between hover:-translate-y-2 transition-all duration-500 reveal delay-200 hover:border-cyan/30">
+                    <div>
+                        <div class="w-10 h-10 bg-cyan/5 rounded flex items-center justify-center mb-6 group-hover:bg-cyan/10 transition-colors">
+                            <i data-lucide="brain-circuit" class="text-cyan"></i>
+                        </div>
+                        <h3 class="text-xl font-display font-bold text-white mb-2">Pre-Market Data</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed">18,000+ Step Zero interactions tracking intent before transaction. Unlocking foresight.</p>
+                    </div>
+                    <div class="w-full h-1 bg-white/10 rounded overflow-hidden"><div class="w-0 h-full bg-cyan group-hover:w-full transition-all duration-700"></div></div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="group h-[400px] bg-panel border border-white/10 p-6 flex flex-col justify-between hover:-translate-y-2 transition-all duration-500 reveal delay-300 hover:border-safe/30">
+                    <div>
+                        <div class="w-10 h-10 bg-safe/5 rounded flex items-center justify-center mb-6 group-hover:bg-safe/10 transition-colors">
+                            <i data-lucide="lock-open" class="text-safe"></i>
+                        </div>
+                        <h3 class="text-xl font-display font-bold text-white mb-2">Structural Alignment</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed">Zero ad-revenue conflict. 100% performance-based. Incentives aligned with efficiency.</p>
+                    </div>
+                    <div class="w-full h-1 bg-white/10 rounded overflow-hidden"><div class="w-0 h-full bg-safe group-hover:w-full transition-all duration-700"></div></div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="group h-[400px] bg-panel border border-white/10 p-6 flex flex-col justify-between hover:-translate-y-2 transition-all duration-500 reveal delay-100 hover:border-gold/30">
+                    <div>
+                        <div class="w-10 h-10 bg-gold/5 rounded flex items-center justify-center mb-6 group-hover:bg-gold/10 transition-colors">
+                            <i data-lucide="zap" class="text-gold"></i>
+                        </div>
+                        <h3 class="text-xl font-display font-bold text-white mb-2">Launch Velocity</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed">280+ Agents. 6 Brokerages. Active Day One. Immediate market penetration.</p>
+                    </div>
+                    <div class="w-full h-1 bg-white/10 rounded overflow-hidden"><div class="w-0 h-full bg-gold group-hover:w-full transition-all duration-700"></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 5. THE MONEY (Financials) ==================== -->
+    <section class="relative w-full py-32 bg-void border-t border-white/10 overflow-hidden flex flex-col items-center">
+        <!-- J-Curve Graph -->
+        <svg class="absolute bottom-0 left-0 w-full h-full opacity-20 pointer-events-none" preserveAspectRatio="none" viewBox="0 0 1440 600" fill="none">
+            <path d="M0 600C400 600 600 500 800 300C1000 100 1200 50 1440 0" stroke="#00FF94" stroke-width="3" stroke-dasharray="10 10"/>
+            <path d="M0 600L1440 600V0C1200 50 1000 100 800 300C600 500 400 600 0 600Z" fill="url(#paint0_linear)"/>
+            <defs>
+                <linearGradient id="paint0_linear" x1="720" y1="0" x2="720" y2="600" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#00FF94" stop-opacity="0.1"/><stop offset="1" stop-color="#00FF94" stop-opacity="0"/>
+                </linearGradient>
+            </defs>
+        </svg>
+
+        <div class="max-w-7xl w-full px-6 relative z-10 text-center">
+            <h2 class="text-5xl md:text-6xl font-display font-bold text-white mb-4 reveal">UNLOCKING EXPONENTIAL VALUE.</h2>
+            <p class="text-slate-400 mb-16 reveal">Our model isn't just efficient; it's engineered for hyper-growth.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Metric 1 -->
+                <div class="p-8 bg-panel border border-white/10 rounded-2xl hover:border-safe/30 transition-all reveal delay-100 group hover:-translate-y-2">
+                    <div class="text-7xl font-display font-bold text-safe mb-2">15:1</div>
+                    <div class="text-sm font-bold text-white uppercase tracking-wide mb-2">LTV</div>
+                    <div class="text-xs text-slate-500">Unprecedented Lifetime Value</div>
+                </div>
+                <!-- Metric 2 -->
+                <div class="p-8 bg-panel border border-white/10 rounded-2xl hover:border-safe/30 transition-all reveal delay-200 group hover:-translate-y-2">
+                    <div class="text-7xl font-display font-bold text-safe mb-2">1.6</div>
+                    <div class="text-sm font-bold text-white uppercase tracking-wide mb-2">Mo Payback</div>
+                    <div class="text-xs text-slate-500">Rapid Capital Recovery</div>
+                </div>
+                <!-- Metric 3 -->
+                <div class="p-8 bg-panel border border-white/10 rounded-2xl hover:border-safe/30 transition-all reveal delay-300 group hover:-translate-y-2">
+                    <div class="text-7xl font-display font-bold text-safe mb-2">60%</div>
+                    <div class="text-sm font-bold text-white uppercase tracking-wide mb-2">EBITDA</div>
+                    <div class="text-xs text-slate-500">Sustainable Profitability</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 6. THE NETWORK (Distribution) ==================== -->
+    <section class="relative w-full py-40 bg-void border-t border-white/10 overflow-hidden">
+        <!-- Map Background -->
+        <div class="absolute inset-0 opacity-30 bg-[url('https://imgs.search.brave.com/v4N9a6lqY2l9y7fH_l9-1-2-3-4-5-6.png')] bg-cover bg-center contrast-125 grayscale brightness-50"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-void via-void/80 to-void"></div>
+
+        <div class="max-w-7xl mx-auto text-center relative z-10">
+            <h2 class="text-4xl font-display font-bold text-white mb-6 reveal">DISTRIBUTION SECURED. DAY ONE.</h2>
+            <p class="text-slate-400 mb-16 max-w-2xl mx-auto reveal">Our network of 280+ agents and 6 leading brokerages provides unparalleled market access.</p>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 items-center reveal delay-200 px-4">
+                <div class="h-24 flex items-center justify-center border border-white/10 bg-black/60 backdrop-blur-sm rounded text-xl font-bold text-white hover:bg-white/10 transition-all hover:scale-105">FIDU</div>
+                <div class="h-24 flex items-center justify-center border border-white/10 bg-black/60 backdrop-blur-sm rounded text-xl font-bold text-white hover:bg-white/10 transition-all hover:scale-105">D&B</div>
+                <div class="h-24 flex items-center justify-center border border-white/10 bg-black/60 backdrop-blur-sm rounded text-xl font-bold text-white hover:bg-white/10 transition-all hover:scale-105">MANZIL</div>
+                <div class="h-24 flex items-center justify-center border border-white/10 bg-black/60 backdrop-blur-sm rounded text-xl font-bold text-white hover:bg-white/10 transition-all hover:scale-105">EDRAJ</div>
+            </div>
+
+            <div class="mt-12 inline-block px-6 py-2 bg-cyan/10 border border-cyan/30 rounded-full text-cyan font-mono text-sm animate-pulse reveal delay-300">
+                // 280+ AGENTS ACTIVE DAY ONE
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 7. THE TEAM (Authority) ==================== -->
+    <section class="w-full py-24 px-6 bg-panel border-t border-white/10">
+        <div class="max-w-7xl mx-auto text-center">
+            <h2 class="text-3xl font-display font-bold text-white mb-16 reveal">BUILT BY AUTHORITY.</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <!-- Founder 1 -->
+                <div class="group reveal delay-100">
+                    <div class="w-40 h-40 mx-auto rounded-full mb-6 border-2 border-white/20 group-hover:border-cyan transition-all duration-500 overflow-hidden relative">
+                        <img src="https://github.com/Alameenkhaled/animation/blob/main/Linkedin%20Headshot.png?raw=true" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700 grayscale group-hover:grayscale-0">
+                    </div>
+                    <h3 class="text-2xl font-bold text-white">Al Ameen</h3>
+                    <p class="text-cyan text-xs uppercase tracking-widest mb-2 mt-1">The Architect</p>
+                    <p class="text-sm text-slate-500">DLD/RERA Curriculum Author</p>
+                </div>
+                <!-- Founder 2 -->
+                <div class="group reveal delay-200">
+                    <div class="w-40 h-40 mx-auto rounded-full mb-6 border-2 border-white/20 group-hover:border-cyan transition-all duration-500 overflow-hidden relative">
+                         <img src="https://github.com/Alameenkhaled/Business/blob/main/Faizan%20Photo.jpg?raw=true" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700 grayscale group-hover:grayscale-0">
+                    </div>
+                    <h3 class="text-2xl font-bold text-white">Faizan</h3>
+                    <p class="text-cyan text-xs uppercase tracking-widest mb-2 mt-1">The Builder</p>
+                    <p class="text-sm text-slate-500">Enterprise AI Security</p>
+                </div>
+                <!-- Founder 3 -->
+                <div class="group reveal delay-300">
+                    <div class="w-40 h-40 mx-auto rounded-full mb-6 border-2 border-white/20 group-hover:border-cyan transition-all duration-500 overflow-hidden relative">
+                         <img src="httpshttps://github.com/Alameenkhaled/Business/blob/main/Mahdi%20New%20Phyot.jpeg?raw=true" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700 grayscale group-hover:grayscale-0">
+                    </div>
+                    <h3 class="text-2xl font-bold text-white">Mahdi</h3>
+                    <p class="text-cyan text-xs uppercase tracking-widest mb-2 mt-1">The Strategist</p>
+                    <p class="text-sm text-slate-500">Capital Efficiency</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER (The Close) ==================== -->
+    <footer class="bg-void py-20 border-t border-white/10 text-center relative overflow-hidden">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-cyan/5 blur-3xl pointer-events-none"></div>
+
+        <div class="relative z-10 reveal">
+            <div class="w-16 h-16 mx-auto mb-8 bg-cyan/10 rounded-full flex items-center justify-center border border-cyan animate-pulse shadow-[0_0_30px_rgba(0,240,255,0.2)]">
+                <i data-lucide="shield" class="w-8 h-8 text-cyan"></i>
+            </div>
+
+            <h2 class="text-3xl font-bold text-white mb-10">Ready to tap into the network?</h2>
+
+            <div class="flex flex-col md:flex-row justify-center gap-6 mb-16">
+                <!-- Link Footer Buttons to Calendar -->
+                <a href="https://calendar.app.google/TL4DZAhAstyBqYJJ9" target="_blank" class="px-8 py-4 bg-cyan text-void font-bold uppercase tracking-wider hover:bg-white hover:scale-105 transition-all shadow-lg cursor-pointer inline-block">
+                    Request Access to Data Room
+                </a>
+                <a href="https://calendar.app.google/TL4DZAhAstyBqYJJ9" target="_blank" class="px-8 py-4 border border-white/20 text-white font-bold uppercase tracking-wider hover:border-cyan hover:text-cyan transition-all cursor-pointer inline-block">
+                    Join Partnership Network
+                </a>
+            </div>
+
+            <div class="flex justify-center gap-8 text-xs uppercase tracking-widest text-slate-500 mb-8">
+                <a href="#" class="hover:text-white transition-colors">Legal</a>
+                <a href="#" class="hover:text-white transition-colors">Privacy</a>
+                <a href="#" class="hover:text-white transition-colors">Contact</a>
+            </div>
+            <p class="text-slate-600 text-xs">&copy; 2025 OwenAI. The Trust Infrastructure Layer.</p>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealOnScroll = () => {
+            const windowHeight = window.innerHeight;
+            const elementVisible = 100;
+            revealElements.forEach((reveal) => {
+                const elementTop = reveal.getBoundingClientRect().top;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveal.classList.add('active');
+                }
+            });
+        };
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll();
+    </script>
+</body>
+</html>
