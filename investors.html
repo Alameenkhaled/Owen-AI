@@ -1,0 +1,252 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OwenAI | Investor Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer=""></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&amp;family=Inter:wght@300;400;600&amp;display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        void: '#020408',
+                        panel: '#0B0E14',
+                        cyan: '#00F0FF',
+                        risk: '#FF2A5D',
+                        safe: '#00FF94',
+                        gold: '#FFD700',
+                        slate: '#64748B',
+                    },
+                    fontFamily: {
+                        display: ['Space Grotesk', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #020408; }
+        .glass { background: rgba(11, 14, 20, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        [x-cloak] { display: none !important; }
+    </style>
+<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.pointer-events-none{pointer-events:none}.fixed{position:fixed}.top-0{top:0px}.z-50{z-index:50}.mx-auto{margin-left:auto;margin-right:auto}.mb-1{margin-bottom:0.25rem}.mb-2{margin-bottom:0.5rem}.mb-4{margin-bottom:1rem}.mb-6{margin-bottom:1.5rem}.mb-8{margin-bottom:2rem}.mt-2{margin-top:0.5rem}.mt-4{margin-top:1rem}.flex{display:flex}.inline-flex{display:inline-flex}.grid{display:grid}.hidden{display:none}.h-16{height:4rem}.h-8{height:2rem}.h-full{height:100%}.w-16{width:4rem}.w-8{width:2rem}.w-full{width:100%}.flex-1{flex:1 1 0%}.cursor-pointer{cursor:pointer}.grid-cols-1{grid-template-columns:repeat(1, minmax(0, 1fr))}.grid-cols-4{grid-template-columns:repeat(4, minmax(0, 1fr))}.flex-col{flex-direction:column}.items-center{align-items:center}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-1{gap:0.25rem}.gap-2{gap:0.5rem}.gap-3{gap:0.75rem}.gap-4{gap:1rem}.gap-6{gap:1.5rem}.gap-8{gap:2rem}.space-x-2 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(0.5rem * var(--tw-space-x-reverse));margin-left:calc(0.5rem * calc(1 - var(--tw-space-x-reverse)))}.space-y-1 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.25rem * var(--tw-space-y-reverse))}.space-y-4 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1rem * var(--tw-space-y-reverse))}.overflow-hidden{overflow:hidden}.rounded-lg{border-radius:0.5rem}.rounded-xl{border-radius:0.75rem}.border-b{border-bottom-width:1px}.border-l-2{border-left-width:2px}.border-cyan{--tw-border-opacity:1;border-color:rgb(0 240 255 / var(--tw-border-opacity, 1))}.border-gold{--tw-border-opacity:1;border-color:rgb(255 215 0 / var(--tw-border-opacity, 1))}.border-risk{--tw-border-opacity:1;border-color:rgb(255 42 93 / var(--tw-border-opacity, 1))}.border-safe{--tw-border-opacity:1;border-color:rgb(0 255 148 / var(--tw-border-opacity, 1))}.border-slate-700{--tw-border-opacity:1;border-color:rgb(51 65 85 / var(--tw-border-opacity, 1))}.border-transparent{border-color:transparent}.border-white\/10{border-color:rgb(255 255 255 / 0.1)}.border-white\/5{border-color:rgb(255 255 255 / 0.05)}.bg-cyan{--tw-bg-opacity:1;background-color:rgb(0 240 255 / var(--tw-bg-opacity, 1))}.bg-cyan\/10{background-color:rgb(0 240 255 / 0.1)}.bg-panel{--tw-bg-opacity:1;background-color:rgb(11 14 20 / var(--tw-bg-opacity, 1))}.bg-void{--tw-bg-opacity:1;background-color:rgb(2 4 8 / var(--tw-bg-opacity, 1))}.bg-void\/80{background-color:rgb(2 4 8 / 0.8)}.bg-grid-pattern{background-image:linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px)}.bg-\[size\:40px_40px\]{background-size:40px 40px}.p-1{padding:0.25rem}.p-2{padding:0.5rem}.p-4{padding:1rem}.p-6{padding:1.5rem}.px-2{padding-left:0.5rem;padding-right:0.5rem}.px-3{padding-left:0.75rem;padding-right:0.75rem}.px-4{padding-left:1rem;padding-right:1rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.py-1{padding-top:0.25rem;padding-bottom:0.25rem}.py-2{padding-top:0.5rem;padding-bottom:0.5rem}.py-3{padding-top:0.75rem;padding-bottom:0.75rem}.py-8{padding-top:2rem;padding-bottom:2rem}.text-center{text-align:center}.font-display{font-family:Space Grotesk, sans-serif}.font-mono{font-family:ui-monospace, SFMono-Regular, Menlo, monospace}.text-2xl{font-size:1.5rem;line-height:2rem}.text-3xl{font-size:1.875rem;line-height:2.25rem}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-xs{font-size:0.75rem;line-height:1rem}.font-bold{font-weight:700}.font-medium{font-weight:500}.uppercase{text-transform:uppercase}.tracking-widest{letter-spacing:0.1em}.text-cyan{--tw-text-opacity:1;color:rgb(0 240 255 / var(--tw-text-opacity, 1))}.text-gold{--tw-text-opacity:1;color:rgb(255 215 0 / var(--tw-text-opacity, 1))}.text-risk{--tw-text-opacity:1;color:rgb(255 42 93 / var(--tw-text-opacity, 1))}.text-safe{--tw-text-opacity:1;color:rgb(0 255 148 / var(--tw-text-opacity, 1))}.text-slate-400{--tw-text-opacity:1;color:rgb(100 116 139 / var(--tw-text-opacity, 1))}.text-slate-500{--tw-text-opacity:1;color:rgb(100 116 139 / var(--tw-text-opacity, 1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.opacity-0{opacity:0}.opacity-30{opacity:0.3}.opacity-50{opacity:0.5}.drop-shadow-\[0_0_10px_rgba\(0\2c240\2c255\2c0\.5\)\]{--tw-drop-shadow:drop-shadow(0 0 10px rgba(0,240,255,0.5));filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.backdrop-blur-md{--tw-backdrop-blur:blur(12px);-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-colors{transition-property:color, background-color, border-color, fill, stroke, -webkit-text-decoration-color;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, -webkit-text-decoration-color;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.duration-300{transition-duration:300ms}.hover\:border-cyan:hover{--tw-border-opacity:1;border-color:rgb(0 240 255 / var(--tw-border-opacity, 1))}.hover\:bg-cyan\/10:hover{background-color:rgb(0 240 255 / 0.1)}.hover\:text-white:hover{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}@media (min-width: 1024px){.lg\:grid-cols-12{grid-template-columns:repeat(12, minmax(0, 1fr))}.lg\:col-span-2{grid-column:span 2 / span 2}.lg\:col-span-3{grid-column:span 3 / span 3}.lg\:col-span-4{grid-column:span 4 / span 4}.lg\:col-span-9{grid-column:span 9 / span 9}.lg\:flex{display:flex}}</style></head>
+
+<body class="text-white font-body bg-void" x-data="dashboardData()">
+    <div class="relative min-h-screen w-full lg:flex">
+        <!-- Background Grid -->
+        <div class="absolute inset-0 bg-grid-pattern bg-[size:40px_40px] pointer-events-none opacity-30"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-void via-transparent to-void"></div>
+
+        <!-- Sidebar -->
+        <aside class="lg:w-1/5 bg-panel/50 lg:border-r border-white/5 p-4 lg:p-6 flex flex-col">
+            <div class="flex items-center gap-3 mb-8">
+                <img src="https://github.com/Alameenkhaled/OwenAI/blob/main/ChatGPT%20Image%20Aug%2024,%202025,%2008_27_32%20AM.png?raw=true" class="w-8 h-8 object-contain drop-shadow-[0_0_10px_rgba(0,240,255,0.5)]">
+                <span class="font-display font-bold tracking-widest text-sm text-white">OWEN_AI <span class="text-slate-500">// DASHBOARD</span></span>
+            </div>
+            <nav class="flex-1 space-y-1">
+                <a href="#" @click.prevent="activeView = 'overview'" :class="{'bg-cyan/10 text-cyan border-l-2 border-cyan': activeView === 'overview', 'text-slate-400 hover:bg-white/5 hover:text-white': activeView !== 'overview'}" class="flex items-center gap-3 px-3 py-2 rounded-lg transition-all text-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><rect width="7" height="9" x="3" y="3" rx="1"></rect><rect width="7" height="5" x="14" y="3" rx="1"></rect><rect width="7" height="9" x="14" y="12" rx="1"></rect><rect width="7" height="5" x="3" y="16" rx="1"></rect></svg>
+                    Overview
+                </a>
+                <a href="#" @click.prevent="activeView = 'financials'" :class="{'bg-cyan/10 text-cyan border-l-2 border-cyan': activeView === 'financials', 'text-slate-400 hover:bg-white/5 hover:text-white': activeView !== 'financials'}" class="flex items-center gap-3 px-3 py-2 rounded-lg transition-all text-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><line x1="12" x2="12" y1="20" y2="10"></line><line x1="18" x2="18" y1="20" y2="4"></line><line x1="6" x2="6" y1="20" y2="16"></line></svg>
+                    Financials
+                </a>
+                 <a href="#" @click.prevent="activeView = 'data_room'" :class="{'bg-cyan/10 text-cyan border-l-2 border-cyan': activeView === 'data_room', 'text-slate-400 hover:bg-white/5 hover:text-white': activeView !== 'data_room'}" class="flex items-center gap-3 px-3 py-2 rounded-lg transition-all text-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                    Data Room
+                </a>
+            </nav>
+            <div class="mt-auto">
+                 <a href="/" class="text-xs text-slate-400 hover:text-white transition-colors flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3 h-3"><path d="M18 12H6"></path><path d="m12 18-6-6 6-6"></path></svg>
+                    Back to Main Site
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-4 lg:p-6">
+            <!-- Overview -->
+            <div x-show="activeView === 'overview'" x-cloak="" class="space-y-8">
+                <h1 class="text-2xl font-bold font-display text-white">Dashboard Overview</h1>
+                <!-- Key Metrics -->
+                <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+                    <div class="glass p-4 rounded-xl border-l-2 border-safe">
+                        <div class="text-xs text-slate-400 uppercase">Total Raised</div>
+                        <div class="text-2xl font-bold text-white">$<span x-text="metrics.totalRaised"></span>M</div>
+                    </div>
+                    <div class="glass p-4 rounded-xl border-l-2 border-gold">
+                        <div class="text-xs text-slate-400 uppercase">Valuation Cap</div>
+                        <div class="text-2xl font-bold text-white">$<span x-text="metrics.valuationCap"></span>M</div>
+                    </div>
+                    <div class="glass p-4 rounded-xl border-l-2 border-cyan">
+                        <div class="text-xs text-slate-400 uppercase">Agents Onboarded</div>
+                        <div class="text-2xl font-bold text-white" x-text="metrics.agentsOnboarded"></div>
+                    </div>
+                    <div class="glass p-4 rounded-xl border-l-2 border-risk">
+                        <div class="text-xs text-slate-400 uppercase">Market Gap</div>
+                        <div class="text-2xl font-bold text-white" x-text="metrics.marketGap"></div>
+                    </div>
+                </div>
+                <!-- Growth Chart -->
+                <div class="glass p-6 rounded-xl">
+                    <h2 class="text-lg font-bold text-white mb-4">Agent Network Growth</h2>
+                    <div class="h-64"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div><canvas id="agentGrowthChart" style="display: block; box-sizing: border-box; height: 256px; width: 588.8px;" width="736" height="320"></canvas></div>
+                </div>
+            </div>
+
+            <!-- Financials View -->
+             <div x-show="activeView === 'financials'" x-cloak="" class="space-y-8">
+                <h1 class="text-2xl font-bold font-display text-white">Financial Projections</h1>
+                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="glass p-6 rounded-xl">
+                        <h2 class="text-lg font-bold text-white mb-4">Revenue Breakdown (YoY)</h2>
+                         <div class="h-64"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div><canvas id="revenueChart" style="display: block; box-sizing: border-box; height: 256px; width: 284.4px;" width="355" height="320"></canvas></div>
+                    </div>
+                    <div class="glass p-6 rounded-xl">
+                        <h2 class="text-lg font-bold text-white mb-4">EBITDA Margin (%)</h2>
+                        <div class="h-64"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div><canvas id="ebitdaChart" style="display: block; box-sizing: border-box; height: 256px; width: 284.4px;" width="355" height="320"></canvas></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Room -->
+            <div x-show="activeView === 'data_room'" x-cloak="">
+                <h1 class="text-2xl font-bold font-display text-white mb-6">Confidential Data Room</h1>
+                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <a href="docs/placeholder.pdf" target="_blank" class="glass p-6 rounded-xl hover:border-cyan transition-all group">
+                         <div class="flex items-center gap-4 mb-3">
+                            <div class="bg-cyan/10 p-2 rounded-lg">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cyan w-6 h-6"><path d="M2 3h20"></path><path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3"></path><path d="m7 21 5-5 5 5"></path></svg>
+                            </div>
+                            <h3 class="text-md font-bold text-white">Pitch Deck</h3>
+                        </div>
+                        <p class="text-xs text-slate-400">Vision, strategy, and market analysis.</p>
+                    </a>
+                    <a href="docs/placeholder.pdf" target="_blank" class="glass p-6 rounded-xl hover:border-cyan transition-all group">
+                         <div class="flex items-center gap-4 mb-3">
+                            <div class="bg-cyan/10 p-2 rounded-lg">
+                               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sheet text-cyan w-6 h-6"><path d="M20 22h-2"></path><path d="M20 16h-2"></path><path d="M14 22h-2"></path><path d="M14 16h-2"></path><path d="M8 22h-2"></path><path d="M8 16h-2"></path><path d="M21 1V5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V1"></path><path d="M3 1h18v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V1Z"></path><path d="M12 1v11"></path></svg>
+                            </div>
+                            <h3 class="text-md font-bold text-white">Financial Projections</h3>
+                        </div>
+                        <p class="text-xs text-slate-400">Detailed 5-year financial model.</p>
+                    </a>
+                    <a href="docs/placeholder.pdf" target="_blank" class="glass p-6 rounded-xl hover:border-cyan transition-all group">
+                        <div class="flex items-center gap-4 mb-3">
+                            <div class="bg-cyan/10 p-2 rounded-lg">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-book-marked text-cyan w-6 h-6"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path><path d="m16 2-4 5-4-5"></path></svg>
+                            </div>
+                            <h3 class="text-md font-bold text-white">Technical Whitepaper</h3>
+                        </div>
+                        <p class="text-xs text-slate-400">Protocol architecture deep-dive.</p>
+                    </a>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+    function dashboardData() {
+        return {
+            activeView: 'overview',
+            metrics: {
+                totalRaised: 1.2,
+                valuationCap: 15,
+                agentsOnboarded: 287,
+                marketGap: '6 months'
+            },
+            initCharts() {
+                const ctxAgent = document.getElementById('agentGrowthChart').getContext('2d');
+                new Chart(ctxAgent, {
+                    type: 'line',
+                    data: {
+                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+                        datasets: [{
+                            label: 'Agents',
+                            data: [50, 80, 120, 180, 220, 250, 287],
+                            borderColor: '#00F0FF',
+                            backgroundColor: 'rgba(0, 240, 255, 0.1)',
+                            fill: true,
+                            tension: 0.4
+                        }]
+                    },
+                    options: chartOptions('Agents')
+                });
+
+                const ctxRevenue = document.getElementById('revenueChart').getContext('2d');
+                new Chart(ctxRevenue, {
+                    type: 'bar',
+                    data: {
+                        labels: ['2024', '2025', '2026'],
+                        datasets: [{
+                            label: 'Service Fees',
+                            data: [2.5, 6.8, 15.2],
+                            backgroundColor: '#00FF94',
+                        }, {
+                            label: 'Data Licensing',
+                            data: [0.5, 2.1, 7.8],
+                            backgroundColor: '#00F0FF',
+                        }]
+                    },
+                    options: chartOptions('Revenue (in $M)', true)
+                });
+
+                const ctxEbitda = document.getElementById('ebitdaChart').getContext('2d');
+                new Chart(ctxEbitda, {
+                    type: 'line',
+                     data: {
+                        labels: ['2024', '2025', '2026', '2027', '2028'],
+                        datasets: [{
+                            label: 'EBITDA Margin',
+                            data: [-25, 15, 45, 60, 68],
+                            borderColor: '#FFD700',
+                            backgroundColor: 'rgba(255, 215, 0, 0.1)',
+                            fill: true,
+                            tension: 0.4
+                        }]
+                    },
+                    options: chartOptions('Margin (%)')
+                });
+            }
+        }
+    }
+
+    function chartOptions(label, stacked = false) {
+        return {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: stacked, labels: { color: '#64748B' } } },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    stacked: stacked,
+                    ticks: { color: '#64748B', callback: (value) => `${value}` },
+                    grid: { color: 'rgba(255,255,255,0.05)' }
+                },
+                x: {
+                    stacked: stacked,
+                    ticks: { color: '#64748B' },
+                    grid: { display: false }
+                }
+            }
+        };
+    }
+
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('dashboardData', dashboardData);
+        // Timeout to ensure Alpine has initialized everything before we draw charts.
+        setTimeout(() => {
+            const data = dashboardData();
+            data.initCharts();
+        }, 100);
+    });
+    </script>
+</body></html>
